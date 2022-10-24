@@ -41,8 +41,14 @@ class TasksRepositories implements ITasksRepositories {
     return task
   }
 
-  list(): Promise<Task[]> {
-    throw new Error('Method not implemented.')
+  async list(email: string): Promise<Task[]> {
+    const tasks = await this.repository.find({
+      where: {
+        user_email: email,
+      },
+    })
+
+    return tasks
   }
 
   delete(title: string): Promise<void> {

@@ -3,7 +3,7 @@ import { Task } from '../entities/Task'
 
 interface ITasksRepositories {
   save(data: ICreateTaskDTO): Promise<Task | undefined>
-  list(): Promise<Task[]>
+  list(email: string): Promise<Task[]>
   findByTitle(title: string): Promise<Task | undefined>
   delete(title: string): Promise<void>
 }
