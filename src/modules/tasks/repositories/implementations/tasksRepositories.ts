@@ -17,7 +17,14 @@ class TasksRepositories implements ITasksRepositories {
       return undefined
     }
 
-    return this.repository.save(data)
+    const task = new Task(
+      data.title,
+      data.description,
+      data.due_date,
+      data.email,
+    )
+
+    return this.repository.save(task)
   }
 
   async findByTitle(title: string): Promise<Task | undefined> {
