@@ -12,6 +12,7 @@
     "typescript": "^4.8.4"
   },
   "dependencies": {
+    "@types/jsonwebtoken": "^8.5.9",
     "bcrypt": "^5.1.0",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
@@ -25,6 +26,6 @@
     "typeorm": "typeorm-ts-node-commonjs",
     "migration:up": "yarn typeorm migration:run -d src/migrations.config.ts",
     "migration:down": "yarn typeorm migration:revert -d src/migrations.config.ts",
-    "start": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn src/server.ts"
+    "start": "ts-node-dev --transpile-only --ignore-watch node_modules --respawn src/server.ts"
   }
 }
