@@ -4,7 +4,7 @@ import { CreateTaskService } from './CreateTaskService'
 
 class CreateTaskController {
   async handle(request: Request, response: Response): Promise<Response> {
-    const { title, description, due_date } = request.body
+    const { title, description, time, due_date } = request.body
 
     const createTaskService = new CreateTaskService()
 
@@ -13,6 +13,7 @@ class CreateTaskController {
         title,
         description,
         due_date,
+        time,
         email: request.email,
       })
       .catch((error) => {

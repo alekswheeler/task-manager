@@ -36,16 +36,23 @@ class Task {
   })
   user_email: string
 
+  @Column({
+    type: 'int',
+  })
+  time: number
+
   constructor(
     title: string,
     description: string,
     due_date: string,
+    time: number,
     email: string,
   ) {
     const date = new Date().toISOString()
     this.title = title
     this.description = description
     this.due_date = due_date
+    this.time = time
     this.user_email = email
     this.created_at = date
     this.updated_at = date
