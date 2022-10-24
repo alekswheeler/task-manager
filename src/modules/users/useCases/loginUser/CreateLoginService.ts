@@ -26,7 +26,7 @@ class CreateLoginService {
       { name: user.name, email },
       process.env.SECRET as string,
       {
-        expiresIn: '1d',
+        expiresIn: '1h',
       },
     )
     return token

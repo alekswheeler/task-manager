@@ -19,15 +19,16 @@ const ensureAuthenticated = async (
   if (!token) {
     return res.status(401).json({ error: 'Unauthorized' })
   }
+  verify(token, process.env.SECRET as string, (err, decoded) => {
+    if (err) {
+      return res.status(401).json({ error: 'Unauthorized' })
+    }
+    const { name, email } = decoded as { name: string; email: string }
+    req.name = name
+    req.email = email
 
-  const decode = verify(token, process.env.SECRET as string) as {
-    name: string
-    email: string
-  }
-
-  req.name = decode.name
-  req.email = decode.email
-  return next()
+    return next()
+  })
 }
 
 export { ensureAuthenticated }
