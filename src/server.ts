@@ -15,10 +15,12 @@ app.listen(3333, () => {
 /**
  *
  * Tasks
- * Criar uma tarefa
+ ** Criar uma tarefa
  * Editar uma tarefa
- * Remover uma tarefa
- * Visualização (dia, semana, mês)
+ ** Remover uma tarefa
+ **  catch do error
+ **  verificar se a tarefa existe
+ *^ Visualização (dia, semana, mês)
  * Busca por tarefa (título)
  *
  */

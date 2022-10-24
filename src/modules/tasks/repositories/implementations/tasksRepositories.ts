@@ -52,8 +52,19 @@ class TasksRepositories implements ITasksRepositories {
     return tasks
   }
 
-  delete(title: string): Promise<void> {
-    throw new Error('Method not implemented.')
+  async delete(title: string): Promise<boolean> {
+    const task = await this.findByTitle(title)
+    if (!task) {
+      return false
+    }
+
+    await this.repository
+      .createQueryBuilder()
+      .delete()
+      .from(Task)
+      .where('title = :title', { title })
+      .execute()
+    return true
   }
 }
 

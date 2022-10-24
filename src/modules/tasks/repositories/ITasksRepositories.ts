@@ -5,7 +5,7 @@ interface ITasksRepositories {
   save(data: ICreateTaskDTO): Promise<Task | undefined>
   list(email: string): Promise<Task[]>
   findByTitle(title: string): Promise<Task | undefined>
-  delete(title: string): Promise<void>
+  delete(title: string): Promise<boolean>
 }
 
 export { ITasksRepositories }
