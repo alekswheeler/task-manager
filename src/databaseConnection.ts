@@ -3,6 +3,7 @@ import { DataSource, DataSourceOptions } from 'typeorm'
 import * as dotenv from 'dotenv'
 import { User } from './modules/users/entities/User'
 import { join } from 'path'
+import { Task } from './modules/tasks/entities/Task'
 dotenv.config()
 
 const createConnection = (host: string = 'tasksdb'): DataSource => {
@@ -13,7 +14,7 @@ const createConnection = (host: string = 'tasksdb'): DataSource => {
     username: process.env.PG_USER,
     password: process.env.PG_PASSWORD,
     database: process.env.PG_DB,
-    entities: [User],
+    entities: [User, Task],
     migrations: [join(__dirname, 'migrations/**/*.ts')],
   }
 
