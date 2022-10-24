@@ -1,9 +1,8 @@
 import { Router } from 'express'
-import { verifyUserCredentials } from '../middlewares/verifyUserCredentials'
-import { createUserController } from './users.routes'
+import { usersRoutes } from './users.routes'
 
 const router = Router()
 
-router.use('/users', verifyUserCredentials, createUserController.handle)
+router.use('/users', usersRoutes)
 
 export { router }
