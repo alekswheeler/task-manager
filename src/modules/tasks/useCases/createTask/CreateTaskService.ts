@@ -9,6 +9,7 @@ class CreateTaskService {
     title,
     description,
     due_date,
+    time,
     email,
   }: ICreateTaskDTO): Promise<Task | undefined> {
     const tasksRepositories = new TasksRepositories(
@@ -20,6 +21,7 @@ class CreateTaskService {
       description,
       due_date,
       email,
+      time,
     }
 
     const task = await tasksRepositories.save(data)

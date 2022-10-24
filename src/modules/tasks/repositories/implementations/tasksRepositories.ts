@@ -21,6 +21,7 @@ class TasksRepositories implements ITasksRepositories {
       data.title,
       data.description,
       data.due_date,
+      data.time,
       data.email,
     )
 
