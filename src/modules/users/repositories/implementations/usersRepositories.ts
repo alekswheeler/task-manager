@@ -10,7 +10,13 @@ class UsersRepositories implements IUsersRepositories {
     this.repository = repository
   }
 
-  save(data: ICreateUserDTO): Promise<User> {
+  async save(data: ICreateUserDTO): Promise<User | undefined> {
+    const userAlreadyExists = await this.findByEmail(data.email)
+
+    if (userAlreadyExists) {
+      return undefined
+    }
+
     const user = new User(data.name, data.email, data.age, data.password)
 
     return this.repository.save(user)
