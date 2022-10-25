@@ -1,9 +1,15 @@
 /* eslint-disable camelcase */
 import { Column, Entity, PrimaryColumn } from 'typeorm'
-
+import { v4 as uuidv4 } from 'uuid'
 @Entity('tasks')
 class Task {
   @PrimaryColumn({
+    type: 'varchar',
+    length: 255,
+  })
+  id: string
+
+  @Column({
     type: 'varchar',
     length: 255,
   })
@@ -49,6 +55,7 @@ class Task {
     email: string,
   ) {
     const date = new Date().toISOString()
+    this.id = uuidv4()
     this.title = title
     this.description = description
     this.due_date = due_date

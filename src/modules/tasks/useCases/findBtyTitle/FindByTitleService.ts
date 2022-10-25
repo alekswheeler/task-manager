@@ -8,15 +8,18 @@ class FindByTitleService {
     this.tasksRepositories = repository
   }
 
-  async execute(title: string, email: string): Promise<Task | undefined> {
-    const task = await this.tasksRepositories.findByTitle(title)
+  async execute(title: string, email: string): Promise<Task[] | undefined> {
+    const result = await this.tasksRepositories.findByTitle(title)
 
-    if (task) {
-      if (task.user_email === email) {
-        return task
-      }
+    const tasks: Task[] = []
+    if (result) {
+      result.forEach((task) => {
+        if (task.user_email === email) {
+          tasks.push(task)
+        }
+      })
+      return tasks
     }
-
     return undefined
   }
 }
