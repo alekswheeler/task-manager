@@ -1,4 +1,7 @@
 import { Request, Response } from 'express'
+import { AppDataSource } from '../../dataSourceInstance'
+import { Task } from '../../entities/Task'
+import { TasksRepositories } from '../../repositories/implementations/tasksRepositories'
 import { FindByTitleService } from './FindByTitleService'
 
 class FindByTitleController {
@@ -6,7 +9,11 @@ class FindByTitleController {
     const { title } = request.params
     const email = request.email
 
-    const findByTitleService = new FindByTitleService()
+    const tasksRepositories = new TasksRepositories(
+      AppDataSource.getRepository(Task),
+    )
+
+    const findByTitleService = new FindByTitleService(tasksRepositories)
 
     const task = await findByTitleService.execute(title, email)
 

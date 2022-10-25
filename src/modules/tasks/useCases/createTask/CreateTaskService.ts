@@ -1,10 +1,15 @@
 /* eslint-disable camelcase */
-import { AppDataSource } from '../../dataSourceInstance'
 import { ICreateTaskDTO } from '../../dtos/createTaskDTO'
 import { Task } from '../../entities/Task'
-import { TasksRepositories } from '../../repositories/implementations/tasksRepositories'
+import { ITasksRepositories } from '../../repositories/ITasksRepositories'
 
 class CreateTaskService {
+  private readonly tasksRepositories: ITasksRepositories
+
+  constructor(repository: ITasksRepositories) {
+    this.tasksRepositories = repository
+  }
+
   async execute({
     title,
     description,
@@ -12,10 +17,6 @@ class CreateTaskService {
     time,
     email,
   }: ICreateTaskDTO): Promise<Task | undefined> {
-    const tasksRepositories = new TasksRepositories(
-      AppDataSource.getRepository(Task),
-    )
-
     const data: ICreateTaskDTO = {
       title,
       description,
@@ -24,7 +25,7 @@ class CreateTaskService {
       time,
     }
 
-    const task = await tasksRepositories.save(data)
+    const task = await this.tasksRepositories.save(data)
 
     if (!task) {
       return undefined

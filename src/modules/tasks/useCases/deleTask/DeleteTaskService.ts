@@ -1,14 +1,14 @@
-import { AppDataSource } from '../../dataSourceInstance'
-import { Task } from '../../entities/Task'
-import { TasksRepositories } from '../../repositories/implementations/tasksRepositories'
+import { ITasksRepositories } from '../../repositories/ITasksRepositories'
 
 class DeleteTaskService {
-  async execute(title: string): Promise<boolean> {
-    const tasksRepositories = new TasksRepositories(
-      AppDataSource.getRepository(Task),
-    )
+  private readonly repository: ITasksRepositories
 
-    const taskDeleted = await tasksRepositories.delete(title)
+  constructor(repository: ITasksRepositories) {
+    this.repository = repository
+  }
+
+  async execute(title: string): Promise<boolean> {
+    const taskDeleted = await this.repository.delete(title)
     if (!taskDeleted) {
       return false
     }
