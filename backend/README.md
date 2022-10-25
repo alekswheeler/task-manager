@@ -8,6 +8,8 @@ Na parte do backend foram criadas as funções relativas à lógica de negócio 
 
 ## Como subir o servidor
 
+Altere o arquivo _tsconfig.json_ na propriedade "rootDir" para o caminho absoluto até a pasta de nome backend.
+
 Certifique-se de ter o [docker]() instalado na máquina e digite o seguinte comando (caso não esteja usando linux não precisa do sudo).
 
     sudo docker-compose up
