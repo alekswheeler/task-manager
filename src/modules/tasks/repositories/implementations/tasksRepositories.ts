@@ -13,7 +13,7 @@ class TasksRepositories implements ITasksRepositories {
   async save(data: ICreateTaskDTO): Promise<Task | undefined> {
     const taskAlreadyExists = await this.findByTitle(data.title)
 
-    if (taskAlreadyExists) {
+    if (taskAlreadyExists && taskAlreadyExists.user_email === data.email) {
       return undefined
     }
 
