@@ -13,7 +13,7 @@ class TasksRepositories implements ITasksRepositories {
   async save(data: ICreateTaskDTO): Promise<Task | undefined> {
     const taskAlreadyExists = await this.findByTitle(data.title)
 
-    if (taskAlreadyExists && taskAlreadyExists.user_email === data.email) {
+    if (taskAlreadyExists && taskAlreadyExists[0].user_email === data.email) {
       return undefined
     }
 
@@ -28,8 +28,8 @@ class TasksRepositories implements ITasksRepositories {
     return this.repository.save(task)
   }
 
-  async findByTitle(title: string): Promise<Task | undefined> {
-    const task = await this.repository.findOne({
+  async findByTitle(title: string): Promise<Task[] | undefined> {
+    const task = await this.repository.find({
       where: {
         title,
       },
