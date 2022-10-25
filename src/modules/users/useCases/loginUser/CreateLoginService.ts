@@ -1,18 +1,19 @@
 import { compare } from 'bcrypt'
 import { config } from 'dotenv'
 import { sign } from 'jsonwebtoken'
-import { AppDataSource } from '../../dataSourceInstace'
 import { User } from '../../entities/User'
-import { UsersRepositories } from '../../repositories/implementations/usersRepositories'
+import { IUsersRepositories } from '../../repositories/IUsersRepositories'
 
 class CreateLoginService {
-  async execute(email: string, password: string): Promise<string | undefined> {
-    const usersRepositories = new UsersRepositories(
-      AppDataSource.getRepository(User),
-    )
+  private readonly repository: IUsersRepositories
 
+  constructor(repository: IUsersRepositories) {
+    this.repository = repository
+  }
+
+  async execute(email: string, password: string): Promise<string | undefined> {
     config()
-    const user = (await usersRepositories.findByEmail(email)) as User
+    const user = (await this.repository.findByEmail(email)) as User
 
     if (!user) {
       return undefined

@@ -1,14 +1,15 @@
-import { AppDataSource } from '../../dataSourceInstance'
 import { Task } from '../../entities/Task'
 import { TasksRepositories } from '../../repositories/implementations/tasksRepositories'
 
 class ListTasksService {
-  async execute(email: string): Promise<Task[]> {
-    const tasksRepositories = new TasksRepositories(
-      AppDataSource.getRepository(Task),
-    )
+  private readonly tasksRepositories: TasksRepositories
 
-    const tasks = await tasksRepositories.list(email)
+  constructor(repository: TasksRepositories) {
+    this.tasksRepositories = repository
+  }
+
+  async execute(email: string): Promise<Task[]> {
+    const tasks = await this.tasksRepositories.list(email)
 
     return tasks
   }

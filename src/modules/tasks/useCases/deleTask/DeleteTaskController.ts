@@ -1,10 +1,18 @@
 import { Request, Response } from 'express'
+import { AppDataSource } from '../../dataSourceInstance'
+import { TasksRepositories } from '../../repositories/implementations/tasksRepositories'
 import { DeleteTaskService } from './DeleteTaskService'
+import { Task } from '../../entities/Task'
 
 class DeleteTaskController {
   async handle(request: Request, response: Response) {
     const { title } = request.params
-    const deleteTaskService = new DeleteTaskService()
+
+    const tasksRepositories = new TasksRepositories(
+      AppDataSource.getRepository(Task),
+    )
+
+    const deleteTaskService = new DeleteTaskService(tasksRepositories)
 
     const serviceResult = await deleteTaskService
       .execute(title)

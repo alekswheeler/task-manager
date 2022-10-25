@@ -1,4 +1,7 @@
 import { Request, Response } from 'express'
+import { AppDataSource } from '../../dataSourceInstace'
+import { User } from '../../entities/User'
+import { UsersRepositories } from '../../repositories/implementations/usersRepositories'
 import { CreateLoginService } from './CreateLoginService'
 
 interface ICreateLoginDTO {
@@ -9,7 +12,12 @@ interface ICreateLoginDTO {
 class CreateLoginController {
   async handle(request: Request, response: Response): Promise<Response> {
     const { email, password }: ICreateLoginDTO = request.body
-    const createLoginService = new CreateLoginService()
+
+    const usersRepositories = new UsersRepositories(
+      AppDataSource.getRepository(User),
+    )
+
+    const createLoginService = new CreateLoginService(usersRepositories)
 
     const token = await createLoginService.execute(email, password)
 
