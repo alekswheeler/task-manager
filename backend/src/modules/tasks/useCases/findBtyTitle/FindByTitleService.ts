@@ -1,3 +1,4 @@
+import { AppError } from '../../../../utils/AppError'
 import { Task } from '../../entities/Task'
 import { TasksRepositories } from '../../repositories/implementations/tasksRepositories'
 
@@ -20,7 +21,8 @@ class FindByTitleService {
       })
       return tasks
     }
-    return undefined
+
+    throw new AppError('Task not found', 404)
   }
 }
 

@@ -14,10 +14,7 @@ class ListTasksController {
 
     const listTasksService = new ListTasksService(tasksRepositories)
 
-    const tasks = await listTasksService.execute(email).catch((error) => {
-      console.error(error)
-      return response.status(500).json({ error: 'Internal server error' })
-    })
+    const tasks = await listTasksService.execute(email)
 
     return response.status(200).json(tasks)
   }
