@@ -13,16 +13,7 @@ class CreateUserController {
     )
     const createUserService = new CreateUserService(usersRepositories)
 
-    const user = await createUserService
-      .execute({ name, email, age, password })
-      .catch((error) => {
-        console.error(error)
-        return res.status(500).json({ message: 'internal server error' })
-      })
-
-    if (!user) {
-      return res.status(422).json({ error: 'user already exists' })
-    }
+    const user = await createUserService.execute({ name, email, age, password })
 
     return res.status(200).json(user)
   }

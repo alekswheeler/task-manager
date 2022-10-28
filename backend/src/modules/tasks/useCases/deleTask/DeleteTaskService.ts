@@ -1,3 +1,4 @@
+import { AppError } from '../../../../utils/AppError'
 import { ITasksRepositories } from '../../repositories/ITasksRepositories'
 
 class DeleteTaskService {
@@ -10,7 +11,7 @@ class DeleteTaskService {
   async execute(title: string): Promise<boolean> {
     const taskDeleted = await this.repository.delete(title)
     if (!taskDeleted) {
-      return false
+      throw new AppError('Task not found', 404)
     }
 
     return true

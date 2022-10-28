@@ -14,22 +14,13 @@ class CreateTaskController {
     )
     const createTaskService = new CreateTaskService(tasksRepositories)
 
-    const task = await createTaskService
-      .execute({
-        title,
-        description,
-        due_date,
-        time,
-        email: request.email,
-      })
-      .catch((error) => {
-        console.error(error)
-        return response.status(500).json({ error: 'Internal server error' })
-      })
-
-    if (!task) {
-      return response.status(400).json({ error: 'Task already exists' })
-    }
+    const task = await createTaskService.execute({
+      title,
+      description,
+      due_date,
+      time,
+      email: request.email,
+    })
 
     return response.status(201).json(task)
   }

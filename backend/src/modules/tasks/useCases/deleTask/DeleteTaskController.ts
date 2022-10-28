@@ -14,16 +14,7 @@ class DeleteTaskController {
 
     const deleteTaskService = new DeleteTaskService(tasksRepositories)
 
-    const serviceResult = await deleteTaskService
-      .execute(title)
-      .catch((error) => {
-        console.error(error)
-        return response.status(500).json({ error: 'internal server error' })
-      })
-
-    if (!serviceResult) {
-      return response.status(404).json({ error: 'task not found' })
-    }
+    await deleteTaskService.execute(title)
 
     return response.status(200).json({ message: 'task deleted' })
   }

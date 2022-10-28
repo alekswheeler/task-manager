@@ -17,10 +17,6 @@ class FindByTitleController {
 
     const task = await findByTitleService.execute(title, email)
 
-    if (!task) {
-      return response.status(404).json({ error: 'Task not found' })
-    }
-
     return response.json(task)
   }
 }

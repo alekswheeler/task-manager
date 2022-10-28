@@ -2,6 +2,7 @@ import { ICreateUserDTO } from '../../dtos/createUserDTO'
 import { User } from '../../entities/User'
 import { genSaltSync, hashSync } from 'bcrypt'
 import { IUsersRepositories } from '../../repositories/IUsersRepositories'
+import { AppError } from '../../../../utils/AppError'
 
 class CreateUserService {
   private readonly repository: IUsersRepositories
@@ -18,7 +19,7 @@ class CreateUserService {
   }: ICreateUserDTO): Promise<User | undefined> {
     const emailAlreadyExists = await this.repository.findByEmail(email)
     if (emailAlreadyExists) {
-      return undefined
+      throw new AppError('Email already exists', 400)
     }
 
     const salt = genSaltSync(10)

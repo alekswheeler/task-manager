@@ -21,9 +21,6 @@ class CreateLoginController {
 
     const token = await createLoginService.execute(email, password)
 
-    if (!token) {
-      return response.status(401).json({ error: 'Email or password incorrect' })
-    }
     return response.status(201).json({ token })
   }
 }

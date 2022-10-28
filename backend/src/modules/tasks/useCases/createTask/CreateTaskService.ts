@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+import { AppError } from '../../../../utils/AppError'
 import { ICreateTaskDTO } from '../../dtos/createTaskDTO'
 import { Task } from '../../entities/Task'
 import { ITasksRepositories } from '../../repositories/ITasksRepositories'
@@ -28,7 +29,7 @@ class CreateTaskService {
     const task = await this.tasksRepositories.save(data)
 
     if (!task) {
-      return undefined
+      throw new AppError('Task already exists', 400)
     }
 
     return task
